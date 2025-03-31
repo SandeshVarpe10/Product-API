@@ -15,6 +15,8 @@ import com.nimapTask.productApplication.repository.productRepository;
 
 @RestController
 @RequestMapping("/api")
+
+
 public class productController {
 	@Autowired
 	productRepository pr;

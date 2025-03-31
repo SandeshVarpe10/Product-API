@@ -1,5 +1,7 @@
 package com.nimapTask.productApplication.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +26,7 @@ public class Product{
 
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @JsonIgnore
     private Category category;
     
     Product(){

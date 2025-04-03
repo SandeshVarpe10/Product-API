@@ -1,6 +1,9 @@
 package com.nimapTask.productApplication.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,11 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.nimapTask.productApplication.entity.Category;
 import com.nimapTask.productApplication.repository.categoryRepository;
-
-import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -21,9 +23,11 @@ public class categoryController {
 	categoryRepository cr;
 	
 	@GetMapping("/categories")
-	public List<Category> getAllCategories(){
-		return cr.findAll();
-	}
+	public Page<Category> getAllCategories(@RequestParam int page) {
+        int pageSize = 1;
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return cr.findAll(pageable);
+    }
 	
 	@GetMapping("/category/{id}")
 	public Category getCategoryById(@PathVariable int id){
